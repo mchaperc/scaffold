@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ -d .git && `git config --get remote.origin.url` == *"mchaperc/scaffold"* ]]; then
+  echo "Deleting cloned git repository"
+  rm -rf .git
+fi
+
+echo "Deleting setup script"
+rm -- "$0"
+
+echo "Customizing README.md"
+echo "# $(basename `pwd`)" > README.md
+
+if [ ! -d .git ]; then
+  echo "Initializing git repository"
+  git init
+  git add .
+  git commit -m "Initial commit"
+fi
+
+if hash hub 2>/dev/null; then
+  echo "Creating repository on GitHub"
+  hub create
+fi
+
+hascommits=$(git ls-remote origin master)
+if [ -z "$hascommits" ]; then
+  echo "Pushing to GitHub"
+  git push -u origin master
+fi
+
+if hash npm 2>/dev/null; then
+  echo "Installing node modules from package.json"
+  npm install
+fi

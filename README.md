@@ -16,6 +16,6 @@ Instructions:
 - Fork/clone repository
 - cd into repository
 - rm -rf .git
-- ./remgit.sh
+- ./setup.sh
 - run 'npm install'
 - To launch an auto-updating server, run 'gulp'
