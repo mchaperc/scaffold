@@ -1,4 +1,5 @@
-define(['backbone',
+define([
+		'backbone',
 		'marionette',
 		'backbone.marionette.dust',
 		'templates'
